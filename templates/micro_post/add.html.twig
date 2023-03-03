@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tạo Bài Viết Mới{% endblock %}
+
+{% block bread %}
+-> add post
+{% endblock %}
+
+
+{% block body %}
+    {{include ('micro_post/_form.html.twig')}}
+{% endblock %}
