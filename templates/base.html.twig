@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark">
+<html class="">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -8,10 +8,11 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        
+
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -24,27 +25,40 @@
             <div class="text-4xl">
                 <a href="{{ path('app_micro_post') }}">Home</a>
                 {% block bread %}
-                    
+
                 {% endblock %}
             </div>
+
             <div class="text-right">
-                <div class="text-sm text-gray-400 dark:text-gray-500">
-                    <div>Đăng Nhập & Đăng Ký ở đây</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 flex">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div>
-                        <a href="{{ path('app_micro_post_add') }}">tạo bài viết mới</a>
+                        <a href="{{ path('app_micro_post_add') }}">Add New</a>
                     </div>
+                    <div class="ml-2">
+                        <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
+                    </div>
+                    <div class="ml-2">
+                        <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                    {% else %}
+                    <div>
+                        <a href="{{ path('app_login') }}">Login</a>
+                    </div>
+                    <div class="ml-2">
+                        <a href="{{ path('app_register') }}">Register</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="w-full md:w-2/3 mx-auto">
-           {% for message in app.flashes('success') %}
-            <div class="rouded-md p-2 border-green-300 bg-green-50 border dark:border-green-600 dark:bg-green-700 dark:text-white mb-4" style="color: green">
-                {{message}}
-            </div>
-            {% endfor %}
 
-            {% block body %}{% endblock %}
-        </div>
-     
+        <div class="w-full md:w-2/3 mx-auto">
+        {% for message in app.flashes('success') %}
+            <div class="rounded-md p-2 border-green-300 bg-green-50 border dark:border-green-600 dark:bg-green-700 dark:text-white mb-4">{{ message }}</div>
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+        </div>   
     </body>
 </html>

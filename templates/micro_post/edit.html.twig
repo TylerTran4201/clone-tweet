@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chỉnh Sửa Bài Viết Mới{% endblock %}
+{% block title %}Editing an Existing Post{% endblock %}
 
 {% block bread %}
--> edit post
+→ <a href="{{ path('app_micro_post_show', {post: post.id}) }}">Post</a> → Edit
 {% endblock %}
 
 {% block body %}
-    {{include ('micro_post/_form.html.twig')}}
+  {{ include ('micro_post/_form.html.twig') }}
 {% endblock %}
